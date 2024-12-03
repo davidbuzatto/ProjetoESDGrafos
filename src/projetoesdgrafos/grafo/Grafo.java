@@ -36,8 +36,8 @@ public class Grafo {
         if ( !st.containsKey( vd ) ) {
             st.put( vd, new ArrayList<>() );
         }
-        st.get( vo ).addFirst( new Aresta( vo, vd ) );
-        st.get( vd ).addFirst( new Aresta( vd, vo ) );
+        st.get( vo ).add( 0, new Aresta( vo, vd ) );
+        st.get( vd ).add( 0, new Aresta( vd, vo ) );
     }
     
     public List<Aresta> adjacentes( int origem ) {
