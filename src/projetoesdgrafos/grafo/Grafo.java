@@ -14,26 +14,40 @@ import java.util.TreeMap;
 public class Grafo {
     
     public Map<Vertice, List<Aresta>> st;
+    public Map<Integer, Vertice> vertices;
     
     public Grafo() {
         st = new TreeMap<>();
+        vertices = new TreeMap<>();
     }
     
-    public void addAresta( Vertice origem, Vertice destino ) {
-        if ( !st.containsKey( origem ) ) {
-            st.put( origem, new ArrayList<>() );
-        }
-        if ( !st.containsKey( destino ) ) {
-            st.put( destino, new ArrayList<>() );
-        }
-        st.get( origem ).addFirst( new Aresta( origem, destino ) );
-        st.get( destino ).addFirst( new Aresta( destino, origem ) );
+    public Vertice addVertice( double x, double y ) {
+        Vertice v = new Vertice( vertices.size(), x, y );
+        vertices.put( v.id, v );
+        return v;
     }
     
-    public void adjacentes( Vertice origem ) {
-        st.getOrDefault( origem, new ArrayList<>() );
+    public void addAresta( int origem, int destino ) {
+        Vertice vo = vertices.get( origem );
+        Vertice vd = vertices.get( destino );
+        if ( !st.containsKey( vo ) ) {
+            st.put( vo, new ArrayList<>() );
+        }
+        if ( !st.containsKey( vd ) ) {
+            st.put( vd, new ArrayList<>() );
+        }
+        st.get( vo ).addFirst( new Aresta( vo, vd ) );
+        st.get( vd ).addFirst( new Aresta( vd, vo ) );
+    }
+    
+    public List<Aresta> adjacentes( int origem ) {
+        return st.getOrDefault( vertices.get( origem ), new ArrayList<>() );
     }
 
+    public int getQuantidadeVertices() {
+        return vertices.size();
+    }
+    
     public void draw( EngineFrame e ) {
         
         for ( Map.Entry<Vertice, List<Aresta>> entry : st.entrySet() ) {
@@ -42,8 +56,8 @@ public class Grafo {
             }
         }
         
-        for ( Vertice v : st.keySet() ) {
-            v.draw( e );
+        for ( Map.Entry<Integer, Vertice> entry : vertices.entrySet() ) {
+            entry.getValue().draw( e );
         }
         
     }

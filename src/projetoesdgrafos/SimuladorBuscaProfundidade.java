@@ -22,6 +22,8 @@ public class SimuladorBuscaProfundidade extends EngineFrame {
         grafo = Utils.criarGrafoTeste();
         System.out.println( grafo );
         setDefaultFontSize( 20 );
+        setDefaultStrokeLineWidth( 2 );
+        setDefaultStrokeEndCap( STROKE_CAP_ROUND );
     }
     
     @Override
@@ -31,7 +33,7 @@ public class SimuladorBuscaProfundidade extends EngineFrame {
     @Override
     public void draw() {
         clearBackground( WHITE );
-        drawText( "<ENTER> para iniciar.", 10, 10, BLACK );
+        drawText( "Clique para escolher a fonte e executar o algoritmo.", 10, 10, BLACK );
         grafo.draw( this );
     }
     
